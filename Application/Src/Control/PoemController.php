@@ -2,8 +2,7 @@
 namespace Project21911226\Application\Src\Control;
 
 
-// require_once("model/PoemStorage.php");
-// require_once("model/PoemStorageStub.php");
+
 use Project21911226\Framework\Request;
 use Project21911226\Framework\Response;
 use Project21911226\Framework\AccessManager;
@@ -16,6 +15,7 @@ class PoemController
     protected $request;
     protected $response;
     protected $view;
+    protected $poemStorage;
     protected $accessmanager;
     protected $authManager;
 
@@ -31,7 +31,6 @@ class PoemController
 
         // create menu
         $menu = array(
-    			"Accueil" => '?',
     			"Poème sympa" => '?o=poem&amp;a=show&amp;id=01',
     			"Autre poème" => '?o=poem&amp;a=show&amp;id=02',
     			"Un poème moins connu" => '?o=poem&amp;a=show&amp;id=03',
@@ -94,8 +93,23 @@ class PoemController
     }
 
     public function makeHomePage() {
-        $title = "Bienvenue !";
-        $content = "Un site sur des poèmes.";
+        $title = "Bienvenue dans votre galeries des images!";
+
+        $poemStorage = new PoemStorageStub();
+        $all_poemes = $poemStorage->readAll();
+        $content = "";
+        $content .= "
+                    <hr class='mt-2 my-5'>
+                    <div class='row text-center text-lg-start'>";
+        foreach ($all_poemes as $poem) {
+        $content .="    <div class='col-lg-3 col-md-4 col-6'>
+                            <a href='#' class='d-block mb-4 h-100'>
+                                <img class='img-fluid img-thumbnail' src='Application/images/{$poem->getImage()}' alt=''>
+                                <p class='text-center'>{$poem->getTitle()}</p>
+                            </a>
+                        </div>";
+        }
+        $content .="</div>";
         $this->showLoginForm();
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);
@@ -110,23 +124,33 @@ class PoemController
             $this->view->setPart('flash', "Vous êtes connecté!");
             $this->view->setPart('logout_btn', "<form action='".$_SERVER['REQUEST_URI']."' method='POST'>
                 <input id='prodId' name='logout' type='hidden' value='logout'>
-                <input type='submit' id='logout' value='Logout' >
+                <input type='submit' id='logout' value='Logout' class='btn btn-danger btn-block ' >
             </form>");
         }else{
                 //formulaire de connexion
-                $form = "
-                <form action='".$_SERVER['REQUEST_URI']."'  method='POST'>
-                    <h1>Connexion</h1>
-                    
-                    <label><b>Nom d'utilisateur</b></label>
-                    <input type='text' placeholder='Entrer le nom d'utilisateur' name='id_user' required>
-
-                    <label><b>Mot de passe</b></label>
-                    <input type='password' placeholder='Entrer le mot de passe' name='psw_user' required>
-
-                    <input type='submit' id='submit' value='LOGIN' >
-                </form>
-                " ;
+                $form = '
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" >
+                Se connecter
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="dropdownMenu2">
+                    <li class="px-3 py-2">
+                            <form action ='.$_SERVER["REQUEST_URI"].' class="form" role="form" method="POST">
+                                <div class="form-group">
+                                    <input id="emailInput" placeholder="Email" class="form-control form-control-sm" type="text" name="id_user" required="" style="width:200px">
+                                </div>
+                                <div class="form-group">
+                                    <input id="passwordInput" placeholder="Mot de passe" class="form-control form-control-sm" type="password" name="psw_user" required="" style="width:200px">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block my-2">Se connecter</button>
+                                </div>
+                                <div class="form-group text-center">
+                                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Mot de passe oublier?</a></small>
+                                </div>
+                            </form>
+                    </li>
+                </ul>
+                ';
                 if(!key_exists("psw_user",$_POST) || key_exists("logout",$_POST) ){
                     
                     $this->authManager->logout();
@@ -148,7 +172,7 @@ class PoemController
                         $this->view->setPart('logout_btn', "
                         <form action='".$_SERVER['REQUEST_URI']."'  method='POST'>
                             <input id='prodId' name='logout' type='hidden' value='logout'>
-                            <input type='submit' id='logout' value='Logout' >
+                            <input type='submit' id='logout' value='Logout' class='btn btn-danger btn-block '>
                         </form>");
                         }
                     }
