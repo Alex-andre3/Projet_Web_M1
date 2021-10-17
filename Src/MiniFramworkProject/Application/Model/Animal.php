@@ -1,5 +1,5 @@
 <?php
-namespace Project21911226\Application\Src\Model;
+namespace Src\MiniFramworkProject\Application\Model;
 
 
 class Animal{

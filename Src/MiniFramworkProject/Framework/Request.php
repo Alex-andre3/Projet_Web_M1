@@ -1,5 +1,5 @@
 <?php
-namespace Project21911226\Framework;
+namespace Src\MiniFramworkProject\Framework;
 
 
 // echo __NAMESPACE__;

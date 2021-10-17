@@ -1,8 +1,8 @@
 <?php
-namespace Project21911226\Application\Src\Model;
+namespace Src\MiniFramworkProject\Application\Model;
 
 
-use Project21911226\Application\Src\Model\Animal;
+use Src\MiniFramworkProject\Application\Model\Animal;
 
 interface AnimalStorage{
 

@@ -1,9 +1,9 @@
 <?php
-namespace Project21911226\Application\Src\Model;
+namespace Src\MiniFramworkProject\Application\Model;
 
 
-use Project21911226\Application\Src\Model\Animal;
-use Project21911226\Application\Src\Model\AnimalStorage;
+use Src\MiniFramworkProject\Application\Model\Animal;
+use Src\MiniFramworkProject\Application\Model\AnimalStorage;
 
 // require_once ("AnimalStorage.php");
 // require_once("Animal.php");

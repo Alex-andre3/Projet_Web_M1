@@ -1,10 +1,10 @@
 <?php
-namespace Project21911226\Framework;
+namespace Src\MiniFramworkProject\Framework;
 
 
 // require_once('Request.php');
-use Project21911226\Framework\Request;
-use Project21911226\Framework\conf;
+use Src\MiniFramworkProject\Framework\Request;
+// use Src\MiniFramworkProject\Framework\Conf;
 
 class Router
 {
@@ -27,15 +27,15 @@ class Router
         // Regarder quel contrôleur instancier
         switch ($package) {
             case 'poem':
-                $this->controllerClassName = 'Project21911226\Application\Src\Control\PoemController';
+                $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\PoemController';
                 break;
             case 'animal':
-                $this->controllerClassName = 'Project21911226\Application\Src\Control\AnimalController';
+                $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\AnimalController';
                 break;
             default:
                 // idem ici, on peut imaginer un package à utiliser par défaut
                 // j'utilise ArticleController pour l'instant car c'est le seul existant
-                $this->controllerClassName = 'Project21911226\Application\Src\Control\PoemController';
+                $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\PoemController';
         }
 
         // tester si la classe à instancier existe bien. Si non lancer une Exception.

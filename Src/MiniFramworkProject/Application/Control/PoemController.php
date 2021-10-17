@@ -1,15 +1,15 @@
 <?php
-namespace Project21911226\Application\Src\Control;
+namespace Src\MiniFramworkProject\Application\Control;
 
 
 
-use Project21911226\Framework\Request;
-use Project21911226\Framework\Response;
-use Project21911226\Framework\AccessManager;
-use Project21911226\Framework\AutenticationManager;
-use Project21911226\Framework\Views\View;
-use Project21911226\Application\Src\Model\PoemStorage;
-use Project21911226\Application\Src\Model\PoemStorageStub;
+use Src\MiniFramworkProject\Framework\Request;
+use Src\MiniFramworkProject\Framework\Response;
+use Src\MiniFramworkProject\Framework\AccessManager;
+use Src\MiniFramworkProject\Framework\AutenticationManager;
+use Src\MiniFramworkProject\Framework\Views\View;
+use Src\MiniFramworkProject\Application\Model\PoemStorage;
+use Src\MiniFramworkProject\Application\Model\PoemStorageStub;
 class PoemController
 {
     protected $request;
@@ -70,7 +70,7 @@ class PoemController
                 $content = "Vous deverez être connecter pour accéder à ce poeme";
             }else{
                 /* Le poème existe, on prépare la page */
-                $image = "Application/images/{$poem->getImage()}";
+                $image = "Src/Images/{$poem->getImage()}";
                 $title = "« {$poem->getTitle()} », par {$poem->getAuthor()}";
                 $content = "<figure>\n<img src=\"$image\" alt=\"{$poem->getAuthor()}\" />\n";
                 $content .= "<figcaption>{$poem->getAuthor()}</figcaption>\n</figure>\n";
@@ -104,7 +104,7 @@ class PoemController
         foreach ($all_poemes as $poem) {
         $content .="    <div class='col-lg-3 col-md-4 col-6'>
                             <a href='#' class='d-block mb-4 h-100'>
-                                <img class='img-fluid img-thumbnail' src='Application/images/{$poem->getImage()}' alt=''>
+                                <img class='img-fluid img-thumbnail' src='Src/Images/{$poem->getImage()}' alt=''>
                                 <p class='text-center'>{$poem->getTitle()}</p>
                             </a>
                         </div>";

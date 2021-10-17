@@ -1,12 +1,12 @@
 <?php
-namespace Project21911226\Application\Src\Model;
+namespace Src\MiniFramworkProject\Application\Model;
 
 
 // require_once("model/Poem.php");
 // require_once("model/PoemStorage.php");
 
-use Project21911226\Application\Src\Model\Poem;
-use Project21911226\Application\Src\Model\PoemStorage;
+use Src\MiniFramworkProject\Application\Model\Poem;
+use Src\MiniFramworkProject\Application\Model\PoemStorage;
 /* Une classe de démo de l'architecture. Une vraie BD ne contiendrait
  * évidemment pas directement des instances de Poem, il faudrait
  * les construire lors de la lecture en BD. */

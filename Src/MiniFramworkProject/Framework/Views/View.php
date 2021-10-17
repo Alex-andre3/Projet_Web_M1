@@ -1,10 +1,10 @@
 <?php
-namespace Project21911226\Framework\Views;
+namespace Src\MiniFramworkProject\Framework\Views;
 
 
 // require_once("Router.php");
 
-use Project21911226\Framework\Router;
+use Src\MiniFramworkProject\Framework\Router;
 class View {
 
   private $chemin;

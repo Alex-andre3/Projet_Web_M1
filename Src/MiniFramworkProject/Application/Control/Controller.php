@@ -1,8 +1,8 @@
 <?php
-namespace Project21911226\Application\Src\Control;
+namespace Src\MiniFramworkProject\Application\Control;
 
-use Project21911226\Framework\Request;
-use Project21911226\Framework\Response;
+use Src\MiniFramworkProject\Framework\Request;
+use Src\MiniFramworkProject\Framework\Response;
 class Controller{
   protected $request;
   protected $response;

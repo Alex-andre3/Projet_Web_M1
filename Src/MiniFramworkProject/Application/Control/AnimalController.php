@@ -1,17 +1,17 @@
 <?php
-namespace Project21911226\Application\Src\Control;
+namespace Src\MiniFramworkProject\Application\Control;
 
 
 // require_once("model/AnimalStorage.php");
 // require_once("model/AnimalStorageStub.php");
 // require_once("control/Controller.php");
 
-use Project21911226\Framework\Request;
-use Project21911226\Framework\Response;
-use Project21911226\Framework\Views\View;
-use Project21911226\Application\Src\Model\AnimalStorage;
-use Project21911226\Application\Src\Model\AnimalStorageStub;
-use Project21911226\Application\Src\Control\Controller;
+use Src\MiniFramworkProject\Framework\Request;
+use Src\MiniFramworkProject\Framework\Response;
+use Src\MiniFramworkProject\Framework\Views\View;
+use Src\MiniFramworkProject\Application\Model\AnimalStorage;
+use Src\MiniFramworkProject\Application\Model\AnimalStorageStub;
+use Src\MiniFramworkProject\Application\Control\Controller;
 
 
 class AnimalController extends Controller{

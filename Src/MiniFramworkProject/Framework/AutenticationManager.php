@@ -1,8 +1,8 @@
 <?php
-namespace Project21911226\Framework;
+namespace Src\MiniFramworkProject\Framework;
 
 
-use Project21911226\Framework\Request;
+use Src\MiniFramworkProject\Framework\Request;
 
 class AutenticationManager
 {
