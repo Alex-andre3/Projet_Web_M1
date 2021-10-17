@@ -35,7 +35,7 @@ class Router
             default:
                 // idem ici, on peut imaginer un package à utiliser par défaut
                 // j'utilise ArticleController pour l'instant car c'est le seul existant
-                $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\PoemController';
+                $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\PictureController';
         }
 
         // tester si la classe à instancier existe bien. Si non lancer une Exception.
