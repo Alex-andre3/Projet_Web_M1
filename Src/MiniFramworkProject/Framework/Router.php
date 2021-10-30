@@ -32,6 +32,9 @@ class Router
             case 'animal':
                 $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\AnimalController';
                 break;
+            case 'picture':
+                $this->controllerClassName = 'Src\MiniFramworkProject\Application\Control\PictureController';
+                break;
             default:
                 // idem ici, on peut imaginer un package à utiliser par défaut
                 // j'utilise ArticleController pour l'instant car c'est le seul existant

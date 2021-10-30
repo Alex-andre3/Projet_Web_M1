@@ -16,6 +16,7 @@ class PictureController
     protected $view;
     protected $accessmanager;
     protected $authManager;
+    private $pictureStorage;
 
     public function __construct(Request $request, Response $response, View $view,AccessManager $accessmanager,AutenticationManager $authManager)
     {
@@ -25,16 +26,14 @@ class PictureController
         $this->authManager = $authManager;
         $this->accessmanager = $accessmanager;
 
-        $this->accessmanager->setRestrictedId(['01','03']);
+        //$this->accessmanager->setRestrictedId(['01','03']);
 
         // create menu
         $menu = array(
-    			"Image sympa" => '?o=poem&amp;a=show&amp;id=01',
-    			"Autre image" => '?o=poem&amp;a=show&amp;id=02',
-    			"Une image moins connu" => '?o=poem&amp;a=show&amp;id=03',
-    			"Une dernière" => '?o=poem&amp;a=show&amp;id=04',
+    			"A propos" => '?o=poem&amp;a=show&amp;id=04',
     		);
         $this->view->setPart('menu', $menu);
+        $this->pictureStorage = new PictureStorageStub();
     }
 
     public function execute($action)
@@ -47,29 +46,52 @@ class PictureController
         return  $this->makeHomePage();
     }
 
+    //page détails d'une image
     public function show() {
+        
+
         // tester les en-têtes HTTP avec Response
         $this->response->addHeader('X-Debugging: show me a picture');
         $id = $this->request->getGetParam('id');
-        $pictureStorage = new PictureStorageStub();
-        $picture = $pictureStorage->read($id);
+        // $pictureStorage = new PictureStorageStub();
+        $picture = $this->pictureStorage->read($id);
         // echo $_SERVER['REQUEST_URI'];
         
+
         $this->showLoginForm();
 
         if ($picture !== null) {
             if(in_array($id,$this->accessmanager->getRestrictedId()) && !$this->accessmanager->getStatut()){
-                $title = "";
+                $title = "Accès restreint";
                 $content = "Vous deverez être connecter pour accéder à cette image";
             }else{
-                /* Le poème existe, on prépare la page */
-                $image = "Src/Images/{$picture->getImage()}";
+                $image = "Src/Images/{$picture->getName()}";
                 $title = "« {$picture->getTitle()} »";
-                $content = "<figure>\n<img src=\"$image\" alt=\"{$picture->getTitle()}\" />\n";
+                $content = "
+                <div class='row jumbotron'>
+                    <div class='row w-100' >
+                            <div class='col-lg-6 col-12 '>
+                            <figure>
+                                <img src=\"$image\" alt=\"{$picture->getTitle()}\" style='max-width:100%'/>
+                                <figcaption class='text-center my-3'>{$picture->getTitle()}</figcaption>
+                            </figure>
+                        </div>
+                        <div class='col-lg-6 col-12'>
+
+                        </div>                         
+                    </div>
+                    
+                    <div class='row'>
+                                            
+                    </div>
+                </div>
+                
+                ";
             }
 
             $this->view->setPart('title', $title);
             $this->view->setPart('content', $content);
+            // $this->view->setPart('picture-meta-data',null);
 
         } else {
             $this->unknownPicture();
@@ -86,21 +108,22 @@ class PictureController
     public function makeHomePage() {
         $title = "Bienvenue dans votre galeries des images!";
 
-        $pictureStorage = new PictureStorageStub();
-        $all_pictures = $pictureStorage->readAll();
+        // $pictureStorage = new PictureStorageStub();
+        $all_pictures = $this->pictureStorage->readAll();
         $content = "";
         $content .= "
                     <hr class='mt-2 my-5'>
                     <div class='row text-center text-lg-start'>";
-        foreach ($all_pictures as $pic) {
+        foreach ($all_pictures as $key => $pic) {
         $content .="    <div class='col-lg-3 col-md-4 col-6'>
-                            <a href='#' class='d-block mb-4 h-100'>
-                                <img class='img-fluid img-thumbnail' src='Src/Images/{$pic->getImage()}' alt=''>
+                            <a href='?o=picture&amp;a=show&amp;id=".$key."' class='d-block mb-4 h-100'>
+                                <img class='img-fluid img-thumbnail' src='Src/Images/{$pic->getName()}' alt=''>
                                 <p class='text-center'>{$pic->getTitle()}</p>
                             </a>
                         </div>";
         }
         $content .="</div>";
+
         $this->showLoginForm();
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);

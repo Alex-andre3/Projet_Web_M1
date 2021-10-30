@@ -3,11 +3,15 @@
 <head>
 	<title><?php echo $this->tab['title'] ?></title>
 	<meta charset="UTF-8" />
+	<meta name="Content-Language" content="fr">
+	<meta name="Subject" content="Gallerie des images">
+	<meta name="Author" content="21911226">
 	<link rel="stylesheet" href="skin/poems.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark position-sticky" role="navigation" style='top:0;'>
+<!-- position-sticky -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark " role="navigation" style='top:0;'>
 		<div class="container">
 			<a class="navbar-brand" href="?">Gallerie</a>
 			<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
