@@ -7,7 +7,7 @@ class Picture{
     private $title;
 	private $name;
 	private $description;
-	private $size;
+	private $size;// la taille de l'image en octets
 	private $width;
 	private $height;
 	private $source_link;

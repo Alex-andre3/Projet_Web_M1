@@ -3,17 +3,24 @@
 <head>
 	<title><?php echo $this->tab['title'] ?></title>
 	<meta charset="UTF-8" />
-	<meta name="Content-Language" content="fr">
+	<meta name="Content-Language" content="en">
 	<meta name="Subject" content="Gallerie des images">
 	<meta name="Author" content="21911226">
-	<link rel="stylesheet" href="skin/poems.css" />
+	<!-- Facebook Open Graph -->
+	<meta property="og:url"                content="?" />
+	<meta property="og:type"               content="website" />
+	<meta property="og:title"              content="Find out the most awesome picture and their stories" />
+	<meta property="og:description"        content="Our website is about posting pictures and their stories in aim of sharing with people around the world some moments or events that we find special" />
+	<meta property="og:image"              content="https://img.jakpost.net/c/2020/07/08/2020_07_08_99729_1594186791._large.jpg" />
+	<meta property="og:locale"             content="en_US" />
+	<!-- <link rel="stylesheet" href="skin/poems.css" /> -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
 <!-- position-sticky -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark " role="navigation" style='top:0;'>
 		<div class="container">
-			<a class="navbar-brand" href="?">Gallerie</a>
+			<a class="navbar-brand" href="?">Gallery</a>
 			<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
 				&#9776;
 			</button>
