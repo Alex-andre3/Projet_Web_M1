@@ -46,6 +46,150 @@ class PictureController
         return  $this->makeHomePage();
     }
 
+    public function buy(){
+
+        $this->response->addHeader('X-Debugging: show me a page to buy picture');
+        $this->showLoginForm();
+
+        $id = $this->request->getGetParam('id');
+        $picture = $this->pictureStorage->read($id);
+
+        if($picture != null){
+            $amount = $picture->getAmount();
+            $test_retour = "o=picture&amp;a=manualReturnPurchase&amp;id=$id";
+            $test_retour1= "?a=manualReturnPurchase";
+            $test_annul = "?a=cancellingReturnPurchase";
+            $test_auto_return = "?a=autoReturnPurchase";
+            $image = "Src/Images/{$picture->getName()}";
+        
+
+            $content = "Le montant de la transaction est de <b>$amount euros</b> <br>";
+            $content .= '<form action="" method="post">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Rentrez votre adresse mail pour effectuer l\'achat</label>
+              <input type="email" class="form-control" name="emailToPurchase" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We\'ll never share your email with anyone else.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          
+          ';
+          $content .= "<img itemprop='image' src=\"$image\" alt=\"{$picture->getTitle()}\" style='max-width:100%'/>";
+
+          if((isset($_POST['emailToPurchase']))&& (!empty($_POST['emailToPurchase']))){
+            $customerEmail = $_POST['emailToPurchase'];
+            $content .= "<br>L'adresse mail qui sera utilisé est : $customerEmail";
+            $all_keys = array(
+
+                'merchant_id' => "014295303911111",
+                "merchant_country" => "fr",
+                "currency_code" => 978,
+                "pathfile" => "Src/Sherlocks/Sherlocks/param_demo/pathfile", 
+                "transaction_id" => "",
+                "normal_return_url" => "https://dev-21811339.users.info.unicaen.fr/devoir-idc2021/Projet_Web_M1/$test_retour1",
+                "cancel_return_url" => "https://dev-21811339.users.info.unicaen.fr/devoir-idc2021/Projet_Web_M1/$test_annul",
+                "automatic_response_url" => "https://dev-21811339.users.info.unicaen.fr/devoir-idc2021/Projet_Web_M1/$test_auto_return",
+                "language" => "fr",
+                "payment_means" => "CB,2,VISA,2,MASTERCARD,2",
+                "header_flag" => "",
+                "capture_day" => "",
+                "capture_mode" => "",
+                "background_id" => "", 
+                "bgcolor" => "", 
+                "block_align" => "center",
+                "block_order" => "",
+                "textcolor" => "", 
+                "textfont" => "", 
+                "templatefile" => "",
+                "logo_id" => "", 
+                "receipt_complement" => "", 
+                "caddie" => "", 
+                "customer_id" => 33,
+                "customer_email" => "", 
+                "customer_ip_address" => "", 
+                "data" => "", 
+                "return_context" => "",
+                "target" => "", 
+                "order_id" => 44,
+                "amount" => $amount*100
+            ); 
+    
+            $request = "";
+            foreach ($all_keys as $key => $value) {
+            $request .= $key . "=" . $value . " ";
+                }    
+        
+            $result = exec("Src/Sherlocks/Sherlocks/bin/request" ." " . $request);
+            //var_dump($result);
+            $test = explode("!", $result)[3];
+            $content .= $test;
+          }         
+        }
+        $title = "Acheter cette image";
+
+        $this->view->setPart('title', $title);
+        $this->view->setPart('content', $content);
+
+    }
+
+    public function manualReturnPurchase(){
+
+        $this->response->addHeader('X-Debugging: show me a page to buy picture');
+        $this->showLoginForm();
+
+        $message = $_POST['DATA'];
+        $pathfile = "Src/Sherlocks/Sherlocks/param_demo/pathfile";
+        $response = exec("Src/Sherlocks/Sherlocks/bin/response" . " ". "message"."=".$message . " ". "pathfile"."=".$pathfile );
+        $response2 = explode("!", $response);
+
+        $amount = $response2[5]/100;
+        $date = $response2[10];
+
+
+        $contentLog = "\n ############################################################## \n";
+        $contentLog .= "Achat de " . $amount . "$\n";
+        $contentLog .=  "Paiement effectué le " . $date; 
+        $contentLog .= "\n";
+
+        $fichier = fopen('Src/logs.txt', 'c+b');
+        fwrite($fichier, $contentLog);
+
+        $title = "Merci pour votre achat !";
+        $content = "Le montant de la transaction réalisée est de $amount euros <br>";
+        $content .= "Transaction effectuée le $date ";
+        
+        $this->view->setPart('title', $title);
+        $this->view->setPart('content', $content);
+
+
+    }
+
+    public function autoReturnPurchase(){
+
+        $this->response->addHeader('X-Debugging: show me a page to buy picture');
+        $this->showLoginForm();
+
+        $title = "retour auto mec";
+        $content = "Le montant de la transaction est de 14 (pour l'instant)";
+        
+        $this->view->setPart('title', $title);
+        $this->view->setPart('content', $content);
+
+    }
+    
+    public function cancellingReturnPurchase(){
+
+        $this->response->addHeader('X-Debugging: show me a page to buy picture');
+        $this->showLoginForm();
+
+        $title = "Désolé la transaction n'a pas pu aboutir.";
+        $content = "Veuillez vérifier les informations fournies pour effectuer le paiement";
+        
+        $this->view->setPart('title', $title);
+        $this->view->setPart('content', $content);
+
+    }
+
     //page détails d'une image
     public function show() {
         
@@ -57,19 +201,6 @@ class PictureController
         $picture = $this->pictureStorage->read($id);
         // echo $_SERVER['REQUEST_URI'];
        
-        
-        if((isset($picture->getGps_data()[2])) && (!is_null($picture->getGps_data()[2]))){
-            $adresse = $picture->getGps_data()[2]; // on recupere l'adresseeeee entière latitude + longetude
-            //var_dump($adresse);
-            if(isset($adresse)){
-            $adresse1 = str_replace('deg','°',$adresse);
-            $adresse2 = str_replace(' ','', $adresse1);
-            $separe_lat_long = explode(',',$adresse2);
-            $lat = $this->convertDMStoDecimalDegrees($separe_lat_long[0]);
-            $long = $this->convertDMStoDecimalDegrees($separe_lat_long[1]);
-
-            }
-        }
 
         $this->showLoginForm();
 
@@ -80,6 +211,19 @@ class PictureController
             }else{
                 $image = "Src/Images/{$picture->getName()}";
                 $title = "« {$picture->getTitle()} »";
+
+                if((isset($picture->getGps_data()[2])) && (!is_null($picture->getGps_data()[2]))){
+                    $adresse = $picture->getGps_data()[2]; // on recupere l'adresseeeee entière latitude + longetude
+                    //var_dump($adresse);
+                    if(isset($adresse)){
+                    $adresse1 = str_replace('deg','°',$adresse);
+                    $adresse2 = str_replace(' ','', $adresse1);
+                    $separe_lat_long = explode(',',$adresse2);
+                    $lat = $this->convertDMStoDecimalDegrees($separe_lat_long[0]);
+                    $long = $this->convertDMStoDecimalDegrees($separe_lat_long[1]);
+        
+                    }
+                }
                 /* 
                  pour la géolocalisation 
                  geo dans https://schema.org/Place
@@ -105,10 +249,15 @@ class PictureController
                                 <img itemprop='image' src=\"$image\" alt=\"{$picture->getTitle()}\" style='max-width:100%'/>
                                 <figcaption itemprop='name' class='text-center my-3'>{$picture->getTitle()}</figcaption>
                             </figure>
+                            <div class='text-center my-3'>
+                            <a href='?o=picture&amp;a=buy&amp;id=$id' class='btn btn-outline-primary' role='button' >Acheter</a>
+                            </div>
                         </div>
+                        
                         <div class='col-lg-6 col-12'>
                             <div class='row'>
                             {$picture->getDescription()}
+                            
                             </div>
                             <hr>
                             <div class='row'>
