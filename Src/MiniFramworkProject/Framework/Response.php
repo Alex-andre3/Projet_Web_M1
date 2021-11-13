@@ -5,6 +5,7 @@ namespace Src\MiniFramworkProject\Framework;
  *
  * embryon de classe pour gérer la réponse HTTP
  */
+require_once('vendor/autoload.php');
 class Response
 {
     /**
@@ -39,6 +40,18 @@ class Response
 	public function send($content)
 	{
 		$this->sendHeaders();
-		echo $content;
+        
+        $loader = new \Twig\Loader\FilesystemLoader('Src/MiniFramworkProject/Application/view/templates');
+        $twig = new \Twig\Environment($loader);
+        // var_dump($content);
+        // echo $content;
+        echo $twig->render('base.html.twig',['title'=> $content['title']
+        ,'content'=>$content['content']
+        ,'menu' => $content['menu']
+        ,'form_cnx' => $content['form_cnx']
+        ,'connexion' => $content['connexion']
+        ,'logout_btn' => key_exists('logout_btn',$content) ? $content['logout_btn'] : null
+    
+    ]);
 	}
 }

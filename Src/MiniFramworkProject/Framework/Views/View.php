@@ -21,11 +21,12 @@ class View {
   }
 
   public function render(){
-    ob_start();
+    /*ob_start();
       include($this->chemin);
     $content = ob_get_contents();
     ob_end_clean();
-    return $content;
+    return $content;*/
+    return $this->tab;
   }
 
 

@@ -9,6 +9,8 @@ use Src\MiniFramworkProject\Framework\AutenticationManager;
 use Src\MiniFramworkProject\Framework\Views\View;
 use Src\MiniFramworkProject\Application\Model\PictureStorage;
 use Src\MiniFramworkProject\Application\Model\PictureStorageStub;
+
+//require_once('vendor/autoload.php');
 class PictureController
 {
     protected $request;
@@ -236,6 +238,13 @@ class PictureController
         $this->showLoginForm();
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);
+
+        // $loader = new \Twig\Loader\FilesystemLoader('Src/MiniFramworkProject/Application/view/templates');
+        // $twig = new \Twig\Environment($loader);
+
+        //FrontController : $this->response->send($content) X
+        // echo $twig->render('base.html.twig');
+
     }
 
     private function convertDMStoDecimalDegrees($convert){

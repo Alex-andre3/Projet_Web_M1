@@ -53,6 +53,7 @@ class FrontController
         	$content = $view->getPart('content');
         } else {*/
         	$content = $view->render();
+            // var_dump($content);                          
         //}
 
         $this->response->send($content);
