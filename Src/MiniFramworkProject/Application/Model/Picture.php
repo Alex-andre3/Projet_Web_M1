@@ -21,10 +21,11 @@ class Picture{
 	private $gps_data;
 	private $copy_rights;
 	private $usage_terms;
+	private $amount;
 	
 
     public function __construct($title, $name,$description,$size,$width,$height,$source_link,$created_date_time,$last_modification,
-	$creator,$keywords_tags,$city,$state,$country,$gps_data,$copy_rights,$usage_terms) {
+	$creator,$keywords_tags,$city,$state,$country,$gps_data,$copy_rights,$usage_terms, $amount=15) {
 		$this->title = $title;
 		$this->name = $name;
 		$this->description = $description;
@@ -42,6 +43,7 @@ class Picture{
 		$this->gps_data = $gps_data;
 		$this->copy_rights = $copy_rights;
 		$this->usage_terms = $usage_terms;
+		$this->amount = $amount;
 	}
 
     /**
@@ -381,6 +383,15 @@ class Picture{
 	{
 		$this->usage_terms = $usage_terms;
 
+		return $this;
+	}
+
+	public function getAmount(){
+		return $this->amount;
+	}
+
+	public function setAmount($amount){
+		$this->amount = $amount;
 		return $this;
 	}
 }
