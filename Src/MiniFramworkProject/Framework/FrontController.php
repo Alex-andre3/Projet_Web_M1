@@ -52,10 +52,10 @@ class FrontController
         /*if ($this->request->isAjaxRequest()) {
         	$content = $view->getPart('content');
         } else {*/
-        	$content = $view->render();
+        	//$content = $view->render();
             // var_dump($content);                          
         //}
 
-        $this->response->send($content);
+        //$this->response->send($content);
     }
 }

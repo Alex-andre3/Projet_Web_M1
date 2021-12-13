@@ -2,14 +2,8 @@
 namespace Src\MiniFramworkProject\Framework;
 
 
-// echo __NAMESPACE__;
 /**
- * embryon de classe Request.
- *
- * La classe ne gère et n'encapsule ici que les données GET, POST
- *
- * La classe ne gère pas non plus le cas où un .htaccess est utilisé pour faire
- * la réécriture d'URL.
+ * Ajouter un attribut $server qui contient $_SERVER
  */
 class Request
 {

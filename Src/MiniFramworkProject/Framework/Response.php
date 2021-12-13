@@ -40,7 +40,6 @@ class Response
 	public function send($content)
 	{
 		$this->sendHeaders();
-        
         $loader = new \Twig\Loader\FilesystemLoader('Src/MiniFramworkProject/Application/view/templates');
         $twig = new \Twig\Environment($loader);
         // var_dump($content);
@@ -48,7 +47,7 @@ class Response
         echo $twig->render('base.html.twig',['title'=> $content['title']
         ,'content'=>$content['content']
         ,'menu' => $content['menu']
-        ,'form_cnx' => $content['form_cnx']
+        ,'form_cnx' => key_exists('form_cnx',$content) ? $content['form_cnx'] : null
         ,'connexion' => $content['connexion']
         ,'logout_btn' => key_exists('logout_btn',$content) ? $content['logout_btn'] : null
     

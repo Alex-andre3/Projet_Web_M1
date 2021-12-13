@@ -7,13 +7,13 @@ namespace Src\MiniFramworkProject\Framework\Views;
 use Src\MiniFramworkProject\Framework\Router;
 class View {
 
-  private $chemin;
+  private $chemin;//inutile
   private $tab;
 
   public function __construct($chemin){
-    $this->chemin=$chemin;
-    $this->title = null;
-    $this->content = null;
+    $this->chemin=$chemin;//inutile
+    //$this->title = null;
+    //$this->content = null;
   }
 
   public function setPart($key,$val){
@@ -28,6 +28,13 @@ class View {
     return $content;*/
     return $this->tab;
   }
-
+  
+/**
+ * Sans passer par la class View ni par Response à la fin de chaque fonction dans le controlleur 
+ * on appelle la fonction Twig->render() et on affiche le template correspondant -Chaque page aura un template-(on peut passer les objets directement
+ * et le décortiqué dans le template twig).
+ * Dans ce càs le FrontController n'aura qu'un seul role c'est d'éxécuter la bonne action.
+ * Pb: les headers de la page ne seront pas envoyer (sendHeader -- class Response)
+ */
 
 }

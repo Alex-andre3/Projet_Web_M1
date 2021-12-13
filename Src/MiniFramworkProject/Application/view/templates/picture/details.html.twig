@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block style %}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    height: 500px;
+    width: 100%;
+}
+{% endblock %}
+
+{% block body %}
+    {# {{ content|raw }} #}
+                <div itemscope itemtype='https://schema.org/Article' class='row jumbotron'>
+                    <div class='row w-100' >
+                        <div class='col-lg-6 col-12 '>
+                            <figure  itemprop='image' itemscope itemtype='https://schema.org/ImageObject'>
+                                <img itemprop='image' src='Src/Images/{{ picture[1].name }}' alt=\"{{ picture[1].title }}\" style='max-width:100%'/>
+                                <figcaption itemprop='name' class='text-center my-3'>{{ picture[1].title }}</figcaption>
+                            </figure>
+                            <div class='text-center my-3'>
+                            <a href='?o=picture&amp;a=buy&amp;id=$id' class='btn btn-outline-primary' role='button' >Acheter | {{ picture[1].amount }} €</a>
+                            </div>
+                        </div>
+                        
+                        <div  class='col-lg-6 col-12'>
+                            <div itemprop='articleBody' class='row'>
+                                {{ picture[1].description }}
+                            </div>
+                            <hr>
+                            <div class='row'>
+                                <div itemprop='author' itemscope itemtype='https://schema.org/Person'  class='col-lg-4 col-12'>
+                                    <p itemprop='name'> author(s) :{{ picture[1].creator }}</p>
+                                </div>
+                                <div class='col-lg-4 col-12'>
+                                    <p>created at : {{ picture[1].created_date_time }}</p>
+                                </div>
+                                <div class='col-lg-4 col-12'>
+                                    <p>last update : {{ picture[1].last_modification }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class='row'>
+                                <div itemprop='countryOfOrigin' itemscope itemtype='https://schema.org/Country' class='col-lg-4 col-12'>
+                                    <p itemprop='name'> country : {{ picture[1].country }}</p>
+                                </div>
+                                <div itemscope itemtype='https://schema.org/State'  class='col-lg-4 col-12'>
+                                    <p itemprop='name'>state : {{ picture[1].state }}</p>
+                                </div>
+                                <div itemscope itemtype='https://schema.org/City' class='col-lg-4 col-12'>
+                                    <p itemprop='name'>city : {{ picture[1].city }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div itemscope itemtype='http://schema.org/CreativeWork' class='row'>
+                                Key words :
+                                <ul>
+                                    {% for key_word in picture[1].keywords_tags %}
+                                        <li itemprop='keywords'>{{ key_word }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>                         
+                    </div>
+                    <div class='row' style='width:100%'>
+                                <div itemprop='copyrightHolder' itemscope itemtype='https://schema.org/Organization'  class='col-lg-4 col-12' >
+                                    <p itemprop='name'>{{ picture[1].copy_rights }}</p>
+                                </div>
+                                <div class='col-lg-4 col-12'>
+                                    <a href='{{ picture[1].usage_terms }}'>Usage terms</a>
+                                </div>
+                                <div class='col-lg-4 col-12'>
+                                    Source-link : <a href='{{ picture[1].source_link }}' w-100>{{ picture[1].source_link }}</a>
+                                </div>
+                            </div>
+                </div>    
+                <div itemprop='contentLocation' itemscope itemtype='https://schema.org/Place' id='map'>
+                </div>
+                <div id='map'></div>
+{% endblock %}
+
+{% block script %}
+    {{ script_geo|raw }}
+{% endblock %}

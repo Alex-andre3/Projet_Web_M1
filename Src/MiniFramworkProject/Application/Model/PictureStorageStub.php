@@ -10,7 +10,7 @@ class PictureStorageStub implements PictureStorage{
 	
 	public function __construct() {
 		/**
-         * extraction des meta-data des images avec exiftool
+         * extraction des meta-données des images avec exiftool
          */
         $exiftool_data=Shell_exec("Src/Image-ExifTool-12.33/exiftool -json -g1 Src/Images");
         $data = json_decode($exiftool_data,true);

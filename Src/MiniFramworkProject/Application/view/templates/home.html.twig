@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block body %}
+    {% if flash[0] == 'success' %}
+    <div class="alert alert-success" role="alert">
+        {{ flash[1] }}
+    </div>
+    {% endif %}
+    <div class='row text-center text-lg-start'>
+    {% for key,picture in all_pictures %}
+            <div  class='col-lg-3 col-md-4 col-6'>
+                <a itemscope itemtype='http://schema.org/ImageObject' href='?o=picture&amp;a=show&amp;id={{ key }}' class='d-block mb-4 h-100'>
+                    <img itemprop='image' class='img-fluid img-thumbnail' src='Src/Images/{{ picture.name }}' alt=''>
+                    <p class='text-center'>{{ picture.title }}</p>
+                </a>
+            </div>
+    {% endfor %}
+    </div>
+    
+    
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

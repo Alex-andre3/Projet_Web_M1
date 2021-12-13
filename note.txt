@@ -1,0 +1,7 @@
+PictureBuilder : creation des images / upload es images en ajax / Vichuploader ??
+Thumbnails pour les image et adaptation de la taille selon l'écran
+Paiement
+config  :pour les  mdp
+gérer l'authentification pour l'upload et suppression et modification
+gérer le cas d'erreur d'url : fausse action ex:'a=shw'
+L'envoie des entêtes avant l'affichage des templates twig

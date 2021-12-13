@@ -27,15 +27,15 @@ D_LOGO!Src/logos/!
 #
 # fichier des  param�tres sherlocks
 #
-F_DEFAULT!/users/21811339/www-dev/devoir-idc2021/Projet_Web_M1/Src/Sherlocks/Sherlocks/param_demo/parmcom.sherlocks!
+F_DEFAULT!/users/21911226/www-dev/M1_2/web/tp1/Src/Sherlocks/Sherlocks/param_demo/parmcom.sherlocks!
 #
 # fichier param�tre commercant
 #
-F_PARAM!/users/21811339/www-dev/devoir-idc2021/Projet_Web_M1/Src/Sherlocks/Sherlocks/param_demo/parmcom!
+F_PARAM!/users/21811339/www-dev/M1_2/web/tp1/Src/Sherlocks/Sherlocks/param_demo/parmcom!
 #
 # certificat du commercant
 #
-F_CERTIFICATE!/users/21811339/www-dev/devoir-idc2021/Projet_Web_M1/Src/Sherlocks/Sherlocks/param_demo/certif!
+F_CERTIFICATE!/users/21811339/www-dev/M1_2/web/tp1/Src/Sherlocks/Sherlocks/param_demo/certif!
 #
 # type du certificat
 #
